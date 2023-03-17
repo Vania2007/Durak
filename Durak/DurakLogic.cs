@@ -8,6 +8,7 @@ namespace Durak
 {
     public class DurakLogic
     {
+        //Logic
         public DurakLogic(Action showState)
         {
             Deck = new CardSet();

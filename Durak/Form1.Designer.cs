@@ -33,6 +33,7 @@ namespace Durak
             this.pPlayer1 = new System.Windows.Forms.Panel();
             this.pTable = new System.Windows.Forms.Panel();
             this.pPLayer2 = new System.Windows.Forms.Panel();
+            this.lStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // pDeck
@@ -63,11 +64,20 @@ namespace Durak
             this.pPLayer2.Size = new System.Drawing.Size(470, 96);
             this.pPLayer2.TabIndex = 3;
             // 
+            // lStatus
+            // 
+            this.lStatus.AutoSize = true;
+            this.lStatus.Location = new System.Drawing.Point(13, 13);
+            this.lStatus.Name = "lStatus";
+            this.lStatus.Size = new System.Drawing.Size(0, 15);
+            this.lStatus.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lStatus);
             this.Controls.Add(this.pPLayer2);
             this.Controls.Add(this.pTable);
             this.Controls.Add(this.pPlayer1);
@@ -75,6 +85,7 @@ namespace Durak
             this.Name = "Form1";
             this.Text = "Durak";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -84,6 +95,7 @@ namespace Durak
         private System.Windows.Forms.Panel pPlayer1;
         private System.Windows.Forms.Panel pTable;
         private System.Windows.Forms.Panel pPLayer2;
+        private System.Windows.Forms.Label lStatus;
     }
 }
 

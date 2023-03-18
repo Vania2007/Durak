@@ -24,7 +24,7 @@ namespace Durak
         public Player Current { get; set; }
         public Player Attacker { get; set; }
         public Player Defender { get; set; }
-        public Card Trump { get; set; } = new Card(Deck.LastCard.Rank, Deck.LastCard.Suit);
+        public Card Trump { get; set; }// = new Card(Deck.LastCard.Rank, Deck.LastCard.Suit);
         public Player FirstPasser { get; set; }
 
         private int CardsToBeat { get; set; }
@@ -34,22 +34,6 @@ namespace Durak
             Defend,
             Toss //підкидання
         }
-
-
-
-
-
-        //public bool IsGreater(Card tableCard, Card movingCard)
-        //public bool PossibleMove(Card movingCard)
-        //public void PickUp() 
-        //public void GiveUp() defender says «I give up»
-        //public void Pass()
-        //public PlayerNextPlayer()
-        
-        //public void Beat()
-        //public void NewTurn()
-
-
         public Player WhoFirst()
         {
             Card smallestCard;
@@ -72,13 +56,51 @@ namespace Durak
                     }
                     Attacker = player;
                     Players[0] = Attacker;
-                    return player;
+                    
                 }
             }
+            return Attacker;
+        }
+        public Player NextPlayer()
+        {
+            int numberOfCurrent = Players.IndexOf(Current);
+            if(numberOfCurrent+1 > Players.Count)
+            {
+                return Players[(numberOfCurrent + 1) / Players.Count];
+            }
+            else
+                return Players[numberOfCurrent + 1];
         }
         public Player NextAttacker()
         {
-
+            if (NextPlayer() == Defender)
+                NextAttacker();
+            return NextPlayer();
+        }
+        public void PickUp()
+        {
+            GiveUp();
+            for (int i = 0; i < Table.Count; i++)
+            {
+                Defender.Hand.Add(Table.Pull());
+            }
+        }
+        public void GiveUp() //defender says «I give up»
+        {
+            //Interface
+            throw new NotImplementedException();
+        }
+        public void Beat()
+        {
+            Table.Clear();
+        }
+        public bool PossibleMove(Card movingCard)
+        {
+            throw new NotImplementedException();
+        }
+        public bool IsGreater(Card tableCard, Card movingCard)
+        {
+            throw new NotImplementedException();
         }
         public void Turn(Card card)
         {
@@ -88,6 +110,10 @@ namespace Durak
             Table.Add(Current.Hand.Pull(card));
             //Current changing
             ShowState();
+        }
+        public void NewTurn()
+        {
+            throw new NotImplementedException();
         }
         public void Start()
         {
@@ -101,17 +127,12 @@ namespace Durak
             TrumpChoise();
             Attacker = Players[0];
             //Who current? Who attacker? Who defender?
-            //foreach (var player in Players)
-            //{
-            //    foreach (var card in player.Hand)
-            //    {
-            //        if (card.Suit == TrumpChoice())
-            //            Players[0] = player;
-            //    }
-            //}
+            Attacker = WhoFirst();
+            Current = Attacker;
+            Defender = Players[1];
             ShowState();
         }
-        public void DealUp()
+        public void DealUp() 
         {
             //whaT IF deck doesn't have enough cards?
             while (Current.Hand.Count < 6)
@@ -124,12 +145,13 @@ namespace Durak
         {
             //next attacker not current
             //передає хід наступному гравцю
-            //for (int i = 0; i < Players.Count + 1; i++)
-            //{
-            //    Current = Players[i];
-            //    if (i > Players.Count)
-            //        i = 0;
-            //}
+            for (int i = 0; i < Players.Count+1; i++)
+            {
+                if (Players[i] != Players[Players.Count + 1])
+                    NextAttacker();
+                else if (Players[i] == Players[Players.Count + 1])
+                    Beat();
+            }
         }
         public void EndOfTheGame()
         {

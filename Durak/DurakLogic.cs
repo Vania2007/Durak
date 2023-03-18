@@ -49,9 +49,9 @@ namespace Durak
         }
         public void Hit()
         {
-            while (Player.Hand.Count < 6)
+            while (Current.Hand.Count < 6)
             {
-                Player.Hand.Add(Deck.Pull());
+                Current.Hand.Add(Deck.Pull());
                 ShowState();
             }
         }
@@ -67,12 +67,12 @@ namespace Durak
         }
         public void EndOfTheGame()
         {
-            //Підбиває підсумки гри повертає "Дурня"(той, хто програв)
+            //Підбиває підсумки гри, повертає "Дурня"(той, хто програв)
             throw new NotImplementedException();
         }
         public CardSuit TrumpChoice()
         {
-            // and return Card, which shows a trump card in the game
+            // і повернути картку, яка показує козир у грі
             Card trumpCard = Deck[0];
             return trumpCard.Suit;
         }

@@ -92,6 +92,7 @@ namespace Durak
         }
         public void Beat()
         {
+
             Table.Clear();
         }
         public bool PossibleMove(Card movingCard)
@@ -100,7 +101,14 @@ namespace Durak
         }
         public bool IsGreater(Card tableCard, Card movingCard)
         {
-            throw new NotImplementedException();
+            if (movingCard.Rank > tableCard.Rank)
+                return true;
+            else if (movingCard.Suit == Trump.Suit && tableCard.Suit != Trump.Suit)
+                return true;
+            else if (movingCard.Suit == Trump.Suit && tableCard.Suit == Trump.Suit && movingCard.Rank > tableCard.Rank)
+                return true;
+            else
+                return false;
         }
         public void Turn(Card card)
         {
@@ -109,6 +117,7 @@ namespace Durak
             //if (!PossibleMove(card)) return;
             Table.Add(Current.Hand.Pull(card));
             //Current changing
+            Current = Players[Players.IndexOf(Current) + 1];
             ShowState();
         }
         public void NewTurn()
@@ -135,10 +144,36 @@ namespace Durak
         public void DealUp() 
         {
             //whaT IF deck doesn't have enough cards?
-            while (Current.Hand.Count < 6)
+            int counter = 0;
+            foreach (var player in Players)
             {
-                Current.Hand.Add(Deck.Pull());
-                ShowState();
+                counter += player.Hand.Count;
+            }
+            if (counter<=Deck.Count)
+            {
+                while (Current.Hand.Count < 6)
+                {
+                    Current.Hand.Add(Deck.Pull());
+                    ShowState();
+                }
+            }
+            else if (counter > Deck.Count)
+            {
+                int separation = counter / Players.Count;
+                if (separation <= Players.Count)
+                {
+                    for (int i = 0; i < separation&&i<Players.Count; i++)
+                    {
+                        Players[i].Hand.Add(Deck.Pull());
+                    }
+                }
+                else if (separation > Players.Count)
+                {
+                    for (int i = 0; Deck.Count > 0 ; i++)
+                    {
+                        Players[i].Hand.Add(Deck.Pull());
+                    }
+                }
             }
         }
         public void Pass()

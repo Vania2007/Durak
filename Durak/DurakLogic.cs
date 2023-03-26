@@ -6,6 +6,12 @@ using System.Text;
 
 namespace Durak
 {
+    public enum Mode
+    {
+        Attack,
+        Defend,
+        Toss //підкидання
+    }
     public class DurakLogic
     {
         //Logic
@@ -18,6 +24,7 @@ namespace Durak
             ShowState = showState;
         }
         public Action ShowState { get; set; }
+        public string Info { get; set; }
         public CardSet Deck { get; set; }
         public List<Player> Players { get; set; }
         public CardSet Table { get; set; }
@@ -27,103 +34,101 @@ namespace Durak
         public Card Trump { get; set; }// = new Card(Deck.LastCard.Rank, Deck.LastCard.Suit);
         public Player FirstPasser { get; set; }
 
+        public Mode GameMode { get; set; }
+
         private int CardsToBeat { get; set; }
-        enum Mode
-        {
-            Attack,
-            Defend,
-            Toss //підкидання
-        }
+
         public Player WhoFirst()
         {
-            Card smallestCard;
-            List<Card> trumps = new List<Card>();
+            
+            Player first = Players[0];
+            Card smallestCard = first.Hand[0];
             foreach (var player in Players)
             {
                 foreach (var card in player.Hand)
                 {
-                    if(card.Suit == Trump.Suit)
+                    if (card.Suit != Trump.Suit) continue;
+
+                    if (smallestCard.Suit != Trump.Suit || card.Rank < smallestCard.Rank)
                     {
-                        trumps.Add(card);
+                        smallestCard = card;
+                        first = player;
                     }
-                    for (int i = 0; i < trumps.Count; i++)
-                    {
-                        if (card.Suit == Trump.Suit && card.Rank < trumps[i].Rank)
-                        {
-                            smallestCard = card;
-                            
-                        }
-                    }
-                    Attacker = player;
-                    Players[0] = Attacker;
-                    
                 }
             }
-            return Attacker;
+            return first;
         }
-        public Player NextPlayer()
+        public Player NextPlayer(Player player)
         {
-            int numberOfCurrent = Players.IndexOf(Current);
-            if(numberOfCurrent+1 > Players.Count)
+            int numberOfCurrent = Players.IndexOf(player);
+            if(numberOfCurrent+1 == Players.Count)
             {
-                return Players[(numberOfCurrent + 1) / Players.Count];
+                return Players[0];
             }
             else
                 return Players[numberOfCurrent + 1];
         }
-        public Player NextAttacker()
+        public Player NextAttacker(Player currentAttacker)
         {
-            if (NextPlayer() == Defender)
-                NextAttacker();
-            return NextPlayer();
+            Player next = NextPlayer(currentAttacker);
+            if (next == Defender)
+                return NextAttacker(next);
+            return next;
         }
         public void PickUp()
         {
-            GiveUp();
-            for (int i = 0; i < Table.Count; i++)
-            {
-                Defender.Hand.Add(Table.Pull());
-            }
+            Defender.Hand.Add(Table.Deal(Table.Count));
         }
         public void GiveUp() //defender says «I give up»
         {
-            //Interface
-            throw new NotImplementedException();
+            GameMode = Mode.Toss;
+            Current = Attacker;
+            Info = "Player is giving up";
+            ShowState();
         }
         public void Beat()
         {
 
             Table.Clear();
+            Attacker = NextAttacker(Attacker);
+            GameMode = Mode.Attack;
+            NextAttacker(Current);
+            CardsToBeat = 6;
         }
         public bool PossibleMove(Card movingCard)
         {
-            throw new NotImplementedException();
-        }
-        public bool IsGreater(Card tableCard, Card movingCard)
-        {
-            if (movingCard.Rank > tableCard.Rank)
-                return true;
-            else if (movingCard.Suit == Trump.Suit && tableCard.Suit != Trump.Suit)
-                return true;
-            else if (movingCard.Suit == Trump.Suit && tableCard.Suit == Trump.Suit && movingCard.Rank > tableCard.Rank)
-                return true;
+            //if mode is defence then card must be greater, if mode is attack or toss then card rank musr be on table or table is empty
+            if (GameMode == Mode.Defend)
+                return IsGreater(movingCard, Table.LastCard);
             else
-                return false;
+            {
+                if (Table.Count == 0) return true;
+                return IsGreater(movingCard, Table.LastCard);
+            }
+        }
+        public bool IsGreater(Card movingCard, Card tableCard)
+        {
+            if (tableCard.Suit == movingCard.Suit)
+                return movingCard.Rank > tableCard.Rank;
+            else
+                return movingCard.Suit == Trump.Suit;
         }
         public void Turn(Card card)
         {
 
             if (!Current.Hand.Contains(card)) return;
-            //if (!PossibleMove(card)) return;
+            if (!PossibleMove(card)) return;
             Table.Add(Current.Hand.Pull(card));
             //Current changing
-            Current = Players[Players.IndexOf(Current) + 1];
+            Current = Current == Attacker ? Defender : Attacker;
+            if (GameMode == Mode.Defend)
+                GameMode = Mode.Attack;
+            else if (GameMode == Mode.Attack)
+                GameMode = Mode.Defend;
             ShowState();
         }
-        public void NewTurn()
-        {
-            throw new NotImplementedException();
-        }
+
+
         public void Start()
         {
             Deck.Shuffle();
@@ -183,7 +188,7 @@ namespace Durak
             for (int i = 0; i < Players.Count+1; i++)
             {
                 if (Players[i] != Players[Players.Count + 1])
-                    NextAttacker();
+                    NextAttacker(Current);
                 else if (Players[i] == Players[Players.Count + 1])
                     Beat();
             }

@@ -18,5 +18,6 @@ namespace Durak
         
         public string Name { get; set; }
         public CardSet Hand { get; set; }
+        public bool InGame { get; set; } = true;
     }
 }

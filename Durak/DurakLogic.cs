@@ -88,7 +88,6 @@ namespace Durak
         }
         public void Beat()
         {
-
             Table.Clear();
             Attacker = NextAttacker(Attacker);
             GameMode = Mode.Attack;

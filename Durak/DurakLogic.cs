@@ -93,17 +93,18 @@ namespace Durak
             GameMode = Mode.Attack;
             NextAttacker(Current);
             CardsToBeat = 6;
+            ShowState();
         }
         public bool PossibleMove(Card movingCard)
         {
             //if mode is defence then card must be greater, if mode is attack or toss then card rank musr be on table or table is empty
             if (GameMode == Mode.Defend)
                 return IsGreater(movingCard, Table.LastCard);
-            else
-            {
-                if (Table.Count == 0) return true;
-                return IsGreater(movingCard, Table.LastCard);
-            }
+           
+            if (Table.Count == 0) return true;
+
+            return Table.FirstOrDefault(c => c.Rank == movingCard.Rank) != default;
+            
         }
         public bool IsGreater(Card movingCard, Card tableCard)
         {
@@ -120,8 +121,17 @@ namespace Durak
             Table.Add(Current.Hand.Pull(card));
             //Current changing
             Current = Current == Attacker ? Defender : Attacker;
+
             if (GameMode == Mode.Defend)
+            {
+                CardsToBeat--;
+                if (CardsToBeat == 0)
+                {
+                    Beat();
+                    return;
+                }
                 GameMode = Mode.Attack;
+            }
             else if (GameMode == Mode.Attack)
                 GameMode = Mode.Defend;
             ShowState();
@@ -151,35 +161,24 @@ namespace Durak
             int counter = 0;
             foreach (var player in Players)
             {
-                counter += player.Hand.Count;
+                if (player.Hand.Count >= 6) continue;
+                player.Hand.Add(Deck.Deal(6 - player.Hand.Count));
             }
-            if (counter<=Deck.Count)
-            {
-                while (Current.Hand.Count < 6)
-                {
-                    Current.Hand.Add(Deck.Pull());
-                    ShowState();
-                }
-            }
-            else if (counter > Deck.Count)
-            {
-                int separation = counter / Players.Count;
-                if (separation <= Players.Count)
-                {
-                    for (int i = 0; i < separation&&i<Players.Count; i++)
-                    {
-                        Players[i].Hand.Add(Deck.Pull());
-                    }
-                }
-                else if (separation > Players.Count)
-                {
-                    for (int i = 0; Deck.Count > 0 ; i++)
-                    {
-                        Players[i].Hand.Add(Deck.Pull());
-                    }
-                }
-            }
+            CheckEmptyPlayers();
+            ShowState();
         }
+
+        private void CheckEmptyPlayers()
+        {
+            int countInGame = 0;
+            foreach (var player in Players)
+            {
+                player.InGame = player.Hand.Count > 0;
+                if (player.InGame) countInGame++;
+            }
+            if (countInGame < 2) EndOfTheGame();
+        }
+
         public void Pass()
         {
             //next attacker not current

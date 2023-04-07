@@ -15,7 +15,7 @@ namespace Durak
     public class DurakLogic
     {
         //Logic
-        public DurakLogic(List<Player> players, Action showInfo, Action showState)
+        public DurakLogic(List<Player> players, Action<string> showInfo, Action showState)
         {
             Deck = new CardSet();
             Deck.Full();
@@ -25,7 +25,7 @@ namespace Durak
             ShowState = showState;
         }
         public Action ShowState { get; set; }
-        public Action ShowInfo { get; set; }
+        public Action<string> ShowInfo { get; set; }
         public string Info { get; set; }
         public CardSet Deck { get; set; }
         public List<Player> Players { get; set; }

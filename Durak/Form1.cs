@@ -22,7 +22,7 @@ namespace Durak
         public Form1()
         {
             InitializeComponent();
-            game = new DurakLogic(players, ShowInfo, ShowState);
+            game = new DurakLogic(players, ShowInfo, ShowState); 
             GraphicsStore store = new GraphicsStore(game.Deck, this);
             sets.Add(new GraphicsCardSet(game.Deck, new Rectangle(pDeck.Location, pDeck.Size),
                 store));

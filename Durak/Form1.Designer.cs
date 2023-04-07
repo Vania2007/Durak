@@ -34,6 +34,9 @@ namespace Durak
             this.pTable = new System.Windows.Forms.Panel();
             this.pPLayer2 = new System.Windows.Forms.Panel();
             this.lStatus = new System.Windows.Forms.Label();
+            this.pActive = new System.Windows.Forms.PictureBox();
+            this.lInfo = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pActive)).BeginInit();
             this.SuspendLayout();
             // 
             // pDeck
@@ -72,11 +75,30 @@ namespace Durak
             this.lStatus.Size = new System.Drawing.Size(0, 15);
             this.lStatus.TabIndex = 4;
             // 
+            // pActive
+            // 
+            this.pActive.Location = new System.Drawing.Point(691, 140);
+            this.pActive.Name = "pActive";
+            this.pActive.Size = new System.Drawing.Size(97, 150);
+            this.pActive.TabIndex = 5;
+            this.pActive.TabStop = false;
+            // 
+            // lInfo
+            // 
+            this.lInfo.AutoSize = true;
+            this.lInfo.Location = new System.Drawing.Point(12, 338);
+            this.lInfo.Name = "lInfo";
+            this.lInfo.Size = new System.Drawing.Size(0, 15);
+            this.lInfo.TabIndex = 6;
+            this.lInfo.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lInfo);
+            this.Controls.Add(this.pActive);
             this.Controls.Add(this.lStatus);
             this.Controls.Add(this.pPLayer2);
             this.Controls.Add(this.pTable);
@@ -84,6 +106,7 @@ namespace Durak
             this.Controls.Add(this.pDeck);
             this.Name = "Form1";
             this.Text = "Durak";
+            ((System.ComponentModel.ISupportInitialize)(this.pActive)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,6 +119,8 @@ namespace Durak
         private System.Windows.Forms.Panel pTable;
         private System.Windows.Forms.Panel pPLayer2;
         private System.Windows.Forms.Label lStatus;
+        private System.Windows.Forms.PictureBox pActive;
+        private System.Windows.Forms.Label lInfo;
     }
 }
 

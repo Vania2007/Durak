@@ -15,23 +15,26 @@ namespace Durak
     public class DurakLogic
     {
         //Logic
-        public DurakLogic(Action showState)
+        public DurakLogic(List<Player> players, Action showInfo, Action showState)
         {
             Deck = new CardSet();
             Deck.Full();
-            
+            Players = players;
             Table = new CardSet();
+            ShowInfo = showInfo;
             ShowState = showState;
         }
         public Action ShowState { get; set; }
+        public Action ShowInfo { get; set; }
         public string Info { get; set; }
         public CardSet Deck { get; set; }
         public List<Player> Players { get; set; }
         public CardSet Table { get; set; }
         public Player Current { get; set; }
+        
         public Player Attacker { get; set; }
         public Player Defender { get; set; }
-        public Card Trump { get; set; }// = new Card(Deck.LastCard.Rank, Deck.LastCard.Suit);
+        public Card Trump { get; set; }
         public Player FirstPasser { get; set; }
 
         public Mode GameMode { get; set; }
@@ -147,7 +150,7 @@ namespace Durak
                 player.Hand.Sort();
             }
             CardsToBeat = 5;
-            TrumpChoise();
+            Trump = TrumpChoise();
             Attacker = Players[0];
             //Who current? Who attacker? Who defender?
             Attacker = WhoFirst();
@@ -167,7 +170,7 @@ namespace Durak
             CheckEmptyPlayers();
             ShowState();
         }
-
+        Player durak; 
         private void CheckEmptyPlayers()
         {
             int countInGame = 0;
@@ -176,7 +179,17 @@ namespace Durak
                 player.InGame = player.Hand.Count > 0;
                 if (player.InGame) countInGame++;
             }
-            if (countInGame < 2) EndOfTheGame();
+            if (countInGame < 2)
+            {
+                
+                foreach (var player in Players)
+                {
+                    
+                    if (player.InGame) 
+                        durak = player;
+                }
+                EndOfTheGame(durak);
+            }
         }
 
         public void Pass()
@@ -191,10 +204,12 @@ namespace Durak
                     Beat();
             }
         }
-        public void EndOfTheGame()
+        public void EndOfTheGame(Player durak)
         {
+
             //Підбиває підсумки гри, повертає "Дурня"(той, хто програв)
-            throw new NotImplementedException();
+            ShowInfo($"{durak.Name} lost the game!\n He is a fool");
+            ShowState();
         }
         public Card TrumpChoise()
         {

@@ -81,12 +81,13 @@ namespace Durak
         public void PickUp()
         {
             Defender.Hand.Add(Table.Deal(Table.Count));
+            DealUp();
         }
         public void GiveUp() //defender says «I give up»
         {
             GameMode = Mode.Toss;
             Current = Attacker;
-            Info = "Player is giving up";
+            ShowInfo($"{Current.Name} is giving up");
             ShowState();
         }
         public void Beat()
@@ -196,7 +197,7 @@ namespace Durak
         {
             //next attacker not current
             //передає хід наступному гравцю
-            for (int i = 0; i < Players.Count+1; i++)
+            for (int i = 0; i < Players.Count; i++)
             {
                 if (Players[i] != Players[Players.Count + 1])
                     NextAttacker(Current);

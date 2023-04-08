@@ -29,35 +29,105 @@ namespace Durak
                 store);
             sets.Add(new GraphicsCardSet(game.Deck, new Rectangle(pDeck.Location, pDeck.Size),
                 store));
-            sets.Add(new GraphicsCardSet(game.Players[0].Hand, new Rectangle(pPlayer1.Location, pPlayer1.Size),
-                store));
-            sets.Add(new GraphicsCardSet(game.Players[1].Hand, new Rectangle(pPLayer2.Location, pPLayer2.Size),
-                store));
+            DistributionOfPlayersOnTheTable();
             sets.Add(table);
             BindEvents();
+            
             game.Start();
             Update();
         }
 
-        //Додати кнопки «Пас» і «Забрати», активність яких визначається у ментоді ShowState на основі режуму гри
-        //Додати на форму 4—6 гравців
-        //Повернути всі малюнки у cardStore          +
-        //Протестувати програму на предмет помилок
-        //Додати мітки для імен гравців
+        //Додати кнопки «Пас» і «Забрати», активність яких визначається у ментоді ShowState на основі режуму гри     +/-
+        //Додати на форму 4—6 гравців                                                                                 +
+        //Повернути всі малюнки у cardStore                                                                           +
+        //Протестувати програму на предмет помилок                                                                   ...
+        //Додати мітки для імен гравців                                                                              +/-
 
         private void ShowInfo(string message)
         {
             lInfo.Text = message;
         }
-
+        private List<Label> PlacementOfLabel()
+        {
+            List<Label> labels = new List<Label>();
+            for (int i = 0; i < players.Count; i++)
+            {
+                Label label = new Label();
+                label.Text = $"{players[i].Name}";
+                label.Font = new Font("Calibri", 18);
+                Controls.Add(label);
+                labels.Add(label);
+            }
+            return labels;
+        }
         List<Player> players = new List<Player>()
         {
             new Player("Bob"),
-            new Player("Patric")
+            new Player("Patric"),
+            //new Player("Alex"),
+            //new Player("Ivan"),
+            //new Player("Vasia"),
+            //new Player("Kolya")
         };
+        
         private void DistributionOfPlayersOnTheTable()
         {
-
+            int NumberOfPlayers = players.Count;
+            if (NumberOfPlayers == 2)
+            {
+                sets.Add(new GraphicsCardSet(game.Players[0].Hand, new Rectangle(pPlayer1.Location, pPlayer1.Size),
+                store));
+                sets.Add(new GraphicsCardSet(game.Players[1].Hand, new Rectangle(pPLayer2.Location, pPLayer2.Size),
+                    store));
+            }
+            else if (NumberOfPlayers == 3)
+            {
+                sets.Add(new GraphicsCardSet(game.Players[0].Hand, new Rectangle(pPlayer1.Location, pPlayer1.Size),
+                store));
+                sets.Add(new GraphicsCardSet(game.Players[1].Hand, new Rectangle(pPlayer23.Location, pPlayer23.Size),
+                    store));
+                sets.Add(new GraphicsCardSet(game.Players[2].Hand, new Rectangle(pPlayer3.Location, pPlayer3.Size),
+                    store));
+            }
+            else if (NumberOfPlayers == 4)
+            {
+                sets.Add(new GraphicsCardSet(game.Players[0].Hand, new Rectangle(pPlayer13.Location, pPlayer13.Size),
+                store));
+                sets.Add(new GraphicsCardSet(game.Players[1].Hand, new Rectangle(pPlayer23.Location, pPlayer23.Size),
+                    store));
+                sets.Add(new GraphicsCardSet(game.Players[2].Hand, new Rectangle(pPlayer3.Location, pPlayer3.Size),
+                    store));
+                sets.Add(new GraphicsCardSet(game.Players[3].Hand, new Rectangle(pPlayer6.Location, pPlayer6.Size),
+                    store));
+            }
+            else if (NumberOfPlayers == 5)
+            {
+                sets.Add(new GraphicsCardSet(game.Players[0].Hand, new Rectangle(pPlayer13.Location, pPlayer13.Size),
+                store));
+                sets.Add(new GraphicsCardSet(game.Players[1].Hand, new Rectangle(pPlayer23.Location, pPlayer23.Size),
+                    store));
+                sets.Add(new GraphicsCardSet(game.Players[2].Hand, new Rectangle(pPlayer3.Location, pPlayer3.Size),
+                    store));
+                sets.Add(new GraphicsCardSet(game.Players[3].Hand, new Rectangle(pPlayer4.Location, pPlayer4.Size),
+                    store));
+                sets.Add(new GraphicsCardSet(game.Players[4].Hand, new Rectangle(pPlayer6.Location, pPlayer6.Size),
+                    store));
+            }
+            else if (NumberOfPlayers == 6)
+            {
+                sets.Add(new GraphicsCardSet(game.Players[0].Hand, new Rectangle(pPlayer13.Location, pPlayer13.Size),
+                store));
+                sets.Add(new GraphicsCardSet(game.Players[1].Hand, new Rectangle(pPlayer23.Location, pPlayer23.Size),
+                    store));
+                sets.Add(new GraphicsCardSet(game.Players[2].Hand, new Rectangle(pPlayer3.Location, pPlayer3.Size),
+                    store));
+                sets.Add(new GraphicsCardSet(game.Players[3].Hand, new Rectangle(pPlayer46.Location, pPlayer46.Size),
+                    store));
+                sets.Add(new GraphicsCardSet(game.Players[4].Hand, new Rectangle(pPlayer5.Location, pPlayer5.Size),
+                    store));
+                sets.Add(new GraphicsCardSet(game.Players[5].Hand, new Rectangle(pPlayer6.Location, pPlayer6.Size),
+                    store));
+            }
         }
         private void ShowState()
         {
@@ -112,5 +182,17 @@ namespace Durak
             pActive.Show();
         }
         
+        private void bPass_Click(object sender, EventArgs e)
+        {
+            bPass.Enabled = false;
+            game.Pass();
+        }
+        
+        private void bTake_Click(object sender, EventArgs e)
+        {
+            bTake.Enabled = false;
+            game.PickUp();
+            game.GiveUp();
+        }
     }
 }

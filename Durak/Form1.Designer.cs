@@ -43,7 +43,7 @@ namespace Durak
             // 
             this.pDeck.Location = new System.Drawing.Point(12, 130);
             this.pDeck.Name = "pDeck";
-            this.pDeck.Size = new System.Drawing.Size(123, 160);
+            this.pDeck.Size = new System.Drawing.Size(160, 160);
             this.pDeck.TabIndex = 0;
             // 
             // pPlayer1
@@ -80,6 +80,7 @@ namespace Durak
             this.pActive.Location = new System.Drawing.Point(691, 140);
             this.pActive.Name = "pActive";
             this.pActive.Size = new System.Drawing.Size(97, 150);
+            this.pActive.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pActive.TabIndex = 5;
             this.pActive.TabStop = false;
             // 

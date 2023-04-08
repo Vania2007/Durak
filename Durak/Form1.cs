@@ -22,18 +22,28 @@ namespace Durak
         public Form1()
         {
             InitializeComponent();
+            pActive.BringToFront();
             game = new DurakLogic(players, ShowInfo, ShowState); 
-            GraphicsStore store = new GraphicsStore(game.Deck, this);
+            store = new GraphicsStore(game.Deck, this);
+            table = new GraphicsCardSet(game.Table, new Rectangle(pTable.Location, pTable.Size),
+                store);
             sets.Add(new GraphicsCardSet(game.Deck, new Rectangle(pDeck.Location, pDeck.Size),
                 store));
             sets.Add(new GraphicsCardSet(game.Players[0].Hand, new Rectangle(pPlayer1.Location, pPlayer1.Size),
                 store));
             sets.Add(new GraphicsCardSet(game.Players[1].Hand, new Rectangle(pPLayer2.Location, pPLayer2.Size),
                 store));
+            sets.Add(table);
             BindEvents();
             game.Start();
             Update();
         }
+
+        //Додати кнопки «Пас» і «Забрати», активність яких визначається у ментоді ShowState на основі режуму гри
+        //Додати на форму 4—6 гравців
+        //Повернути всі малюнки у cardStore          +
+        //Протестувати програму на предмет помилок
+        //Додати мітки для імен гравців
 
         private void ShowInfo(string message)
         {
@@ -45,12 +55,20 @@ namespace Durak
             new Player("Bob"),
             new Player("Patric")
         };
+        private void DistributionOfPlayersOnTheTable()
+        {
 
+        }
         private void ShowState()
         {
             foreach (var set in sets)
             {
-                set.Draw(game.Deck != set.CardSet);
+                if(set.CardSet == game.Deck)
+                {
+                    set.Draw(c => c == game.Trump);
+                }
+                else
+                set.Draw(game.Current.Hand == set.CardSet || game.Table == set.CardSet);
             }
         }
 

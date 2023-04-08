@@ -155,7 +155,7 @@ namespace Durak
             //Who current? Who attacker? Who defender?
             Attacker = WhoFirst();
             Current = Attacker;
-            Defender = Players[1];
+            Defender = NextPlayer(Attacker);
             ShowState();
         }
         public void DealUp() 

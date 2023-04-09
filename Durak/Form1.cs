@@ -32,7 +32,7 @@ namespace Durak
             DistributionOfPlayersOnTheTable();
             sets.Add(table);
             BindEvents();
-            
+            //PlacementOfLabel();
             game.Start();
             Update();
         }
@@ -40,8 +40,10 @@ namespace Durak
         //Додати кнопки «Пас» і «Забрати», активність яких визначається у ментоді ShowState на основі режуму гри     +/-
         //Додати на форму 4—6 гравців                                                                                 +
         //Повернути всі малюнки у cardStore                                                                           +
-        //Протестувати програму на предмет помилок                                                                   ...
         //Додати мітки для імен гравців                                                                              +/-
+        //Протестувати програму на предмет помилок:
+        //                                             1) Pass()!!!;
+        //                                             2) Після натиску кнопок не стають недоступними, хоча цей момент прописано
 
         private void ShowInfo(string message)
         {
@@ -54,7 +56,7 @@ namespace Durak
             {
                 Label label = new Label();
                 label.Text = $"{players[i].Name}";
-                label.Font = new Font("Calibri", 18);
+                label.Location = new Point(); //Прив'язатися до панелей гравців: Point(panel.Location.X, panel.Location.Y-panel.Height)
                 Controls.Add(label);
                 labels.Add(label);
             }
@@ -66,7 +68,7 @@ namespace Durak
             new Player("Patric"),
             //new Player("Alex"),
             //new Player("Ivan"),
-            //new Player("Vasia"),
+            //new Player("Gena"),
             //new Player("Kolya")
         };
         
@@ -140,6 +142,10 @@ namespace Durak
                 else
                 set.Draw(game.Current.Hand == set.CardSet || game.Table == set.CardSet);
             }
+            if (game.Current == game.Attacker && game.GameMode == Mode.Attack && game.Table.Count <= 1)
+                bPass.Enabled = true;
+            else if (game.Current == game.Defender && game.GameMode == Mode.Defend && game.Table.Count <= 1)
+                bTake.Enabled = true;
         }
 
         private void BindEvents()

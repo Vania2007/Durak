@@ -54,7 +54,7 @@ namespace Durak
             // 
             // pDeck
             // 
-            this.pDeck.Location = new System.Drawing.Point(12, 130);
+            this.pDeck.Location = new System.Drawing.Point(12, 122);
             this.pDeck.Name = "pDeck";
             this.pDeck.Size = new System.Drawing.Size(160, 160);
             this.pDeck.TabIndex = 0;
@@ -62,7 +62,7 @@ namespace Durak
             // pTable
             // 
             this.pTable.Controls.Add(this.panel3);
-            this.pTable.Location = new System.Drawing.Point(214, 140);
+            this.pTable.Location = new System.Drawing.Point(214, 126);
             this.pTable.Name = "pTable";
             this.pTable.Size = new System.Drawing.Size(346, 150);
             this.pTable.TabIndex = 2;
@@ -104,7 +104,7 @@ namespace Durak
             // 
             this.bPass.Enabled = false;
             this.bPass.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bPass.Location = new System.Drawing.Point(588, 408);
+            this.bPass.Location = new System.Drawing.Point(599, 408);
             this.bPass.Name = "bPass";
             this.bPass.Size = new System.Drawing.Size(97, 30);
             this.bPass.TabIndex = 7;
@@ -116,7 +116,7 @@ namespace Durak
             // 
             this.bTake.Enabled = false;
             this.bTake.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bTake.Location = new System.Drawing.Point(691, 408);
+            this.bTake.Location = new System.Drawing.Point(702, 408);
             this.bTake.Name = "bTake";
             this.bTake.Size = new System.Drawing.Size(97, 30);
             this.bTake.TabIndex = 8;
@@ -126,7 +126,7 @@ namespace Durak
             // 
             // pPlayer1
             // 
-            this.pPlayer1.Location = new System.Drawing.Point(215, 317);
+            this.pPlayer1.Location = new System.Drawing.Point(215, 304);
             this.pPlayer1.Name = "pPlayer1";
             this.pPlayer1.Size = new System.Drawing.Size(470, 100);
             this.pPlayer1.TabIndex = 1;
@@ -148,51 +148,51 @@ namespace Durak
             // 
             // pPlayer23
             // 
-            this.pPlayer23.Location = new System.Drawing.Point(60, 25);
+            this.pPlayer23.Location = new System.Drawing.Point(60, 13);
             this.pPlayer23.Name = "pPlayer23";
-            this.pPlayer23.Size = new System.Drawing.Size(313, 64);
+            this.pPlayer23.Size = new System.Drawing.Size(313, 96);
             this.pPlayer23.TabIndex = 4;
             // 
             // pPlayer13
             // 
-            this.pPlayer13.Location = new System.Drawing.Point(61, 329);
+            this.pPlayer13.Location = new System.Drawing.Point(61, 304);
             this.pPlayer13.Name = "pPlayer13";
-            this.pPlayer13.Size = new System.Drawing.Size(313, 64);
+            this.pPlayer13.Size = new System.Drawing.Size(313, 100);
             this.pPlayer13.TabIndex = 5;
             // 
             // pPlayer3
             // 
-            this.pPlayer3.Location = new System.Drawing.Point(438, 25);
+            this.pPlayer3.Location = new System.Drawing.Point(438, 12);
             this.pPlayer3.Name = "pPlayer3";
-            this.pPlayer3.Size = new System.Drawing.Size(313, 64);
+            this.pPlayer3.Size = new System.Drawing.Size(313, 97);
             this.pPlayer3.TabIndex = 9;
             // 
             // pPlayer6
             // 
-            this.pPlayer6.Location = new System.Drawing.Point(434, 329);
+            this.pPlayer6.Location = new System.Drawing.Point(434, 304);
             this.pPlayer6.Name = "pPlayer6";
-            this.pPlayer6.Size = new System.Drawing.Size(313, 64);
+            this.pPlayer6.Size = new System.Drawing.Size(313, 100);
             this.pPlayer6.TabIndex = 6;
             // 
             // pPlayer4
             // 
-            this.pPlayer4.Location = new System.Drawing.Point(509, 173);
+            this.pPlayer4.Location = new System.Drawing.Point(509, 157);
             this.pPlayer4.Name = "pPlayer4";
-            this.pPlayer4.Size = new System.Drawing.Size(284, 76);
+            this.pPlayer4.Size = new System.Drawing.Size(284, 86);
             this.pPlayer4.TabIndex = 9;
             // 
             // pPlayer46
             // 
-            this.pPlayer46.Location = new System.Drawing.Point(480, 119);
+            this.pPlayer46.Location = new System.Drawing.Point(480, 107);
             this.pPlayer46.Name = "pPlayer46";
-            this.pPlayer46.Size = new System.Drawing.Size(313, 64);
+            this.pPlayer46.Size = new System.Drawing.Size(313, 86);
             this.pPlayer46.TabIndex = 10;
             // 
             // pPlayer5
             // 
-            this.pPlayer5.Location = new System.Drawing.Point(480, 236);
+            this.pPlayer5.Location = new System.Drawing.Point(480, 223);
             this.pPlayer5.Name = "pPlayer5";
-            this.pPlayer5.Size = new System.Drawing.Size(313, 64);
+            this.pPlayer5.Size = new System.Drawing.Size(313, 76);
             this.pPlayer5.TabIndex = 6;
             // 
             // Form1
@@ -200,6 +200,8 @@ namespace Durak
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.bPass);
+            this.Controls.Add(this.bTake);
             this.Controls.Add(this.lInfo);
             this.Controls.Add(this.pPlayer5);
             this.Controls.Add(this.pPlayer46);
@@ -207,9 +209,7 @@ namespace Durak
             this.Controls.Add(this.pPlayer3);
             this.Controls.Add(this.pPlayer4);
             this.Controls.Add(this.pPlayer13);
-            this.Controls.Add(this.bPass);
             this.Controls.Add(this.pPlayer23);
-            this.Controls.Add(this.bTake);
             this.Controls.Add(this.pActive);
             this.Controls.Add(this.lStatus);
             this.Controls.Add(this.pPLayer2);

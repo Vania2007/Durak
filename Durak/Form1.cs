@@ -42,7 +42,7 @@ namespace Durak
         //Повернути всі малюнки у cardStore                                                                           +
         //Додати мітки для імен гравців                                                                              +/-
         //Протестувати програму на предмет помилок:
-        //                                             1) Pass()!!!;
+        //                                             1) Pass(): немає ніякої реакції
         //                                             2) Після натиску кнопок не стають недоступними, хоча цей момент прописано
 
         private void ShowInfo(string message)
@@ -66,7 +66,7 @@ namespace Durak
         {
             new Player("Bob"),
             new Player("Patric"),
-            //new Player("Alex"),
+            new Player("Alex"),
             //new Player("Ivan"),
             //new Player("Gena"),
             //new Player("Kolya")

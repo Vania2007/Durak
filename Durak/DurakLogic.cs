@@ -199,7 +199,7 @@ namespace Durak
             //передає хід наступному гравцю
             for (int i = 0; i < Players.Count; i++)
             {
-                if (Players[i] != Players[Players.Count + 1])
+                if (i <= Players.Count + 1)
                     NextAttacker(Current);
                 else if (Players[i] == Players[Players.Count + 1])
                     Beat();

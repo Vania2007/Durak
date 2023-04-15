@@ -66,7 +66,7 @@ namespace Durak
         {
             new Player("Bob"),
             new Player("Patric"),
-            new Player("Alex"),
+            //new Player("Alex"),
             //new Player("Ivan"),
             //new Player("Gena"),
             //new Player("Kolya")
@@ -142,10 +142,6 @@ namespace Durak
                 else
                 set.Draw(game.Current.Hand == set.CardSet || game.Table == set.CardSet);
             }
-            if (game.Current == game.Attacker && game.GameMode == Mode.Attack && game.Table.Count <= 1)
-                bPass.Enabled = true;
-            else if (game.Current == game.Defender && game.GameMode == Mode.Defend && game.Table.Count <= 1)
-                bTake.Enabled = true;
         }
 
         private void BindEvents()
@@ -160,6 +156,8 @@ namespace Durak
         }
         private void Turn(object sender, MouseEventArgs e)
         {
+            bTake.Enabled = game.Current == game.Attacker;
+            bPass.Enabled = game.Current == game.Defender;
             if (activeCard == null) return;
             if (e.Button != MouseButtons.Left) return;
             Rectangle r1 = new Rectangle(pActive.Location, pActive.Size);
@@ -192,13 +190,18 @@ namespace Durak
         {
             bPass.Enabled = false;
             game.Pass();
+            bTake.Enabled = game.Current == game.Attacker;
+            bPass.Enabled = game.Current == game.Defender;
+
         }
-        
+
         private void bTake_Click(object sender, EventArgs e)
         {
             bTake.Enabled = false;
-            game.PickUp();
-            game.GiveUp();
+            //game.PickUp();
+            game.GiveUp(); //
+            bTake.Enabled = game.Current == game.Attacker;
+            bPass.Enabled = game.Current == game.Defender;
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Durak
         public Player Defender { get; set; }
         public Card Trump { get; set; }
         public Player FirstPasser { get; set; }
-
+        public Player FirstAttacker { get; set; }
         public Mode GameMode { get; set; }
 
         private int CardsToBeat { get; set; }
@@ -64,12 +64,16 @@ namespace Durak
         public Player NextPlayer(Player player)
         {
             int numberOfCurrent = Players.IndexOf(player);
-            if(numberOfCurrent+1 == Players.Count)
+            Player candidate;
+            if (numberOfCurrent + 1 == Players.Count)
             {
-                return Players[0];
+                candidate = Players[0];
             }
             else
-                return Players[numberOfCurrent + 1];
+            {
+                candidate = Players[numberOfCurrent + 1];
+            }
+            return candidate.InGame?candidate:NextPlayer(candidate);
         }
         public Player NextAttacker(Player currentAttacker)
         {
@@ -82,6 +86,9 @@ namespace Durak
         {
             Defender.Hand.Add(Table.Deal(Table.Count));
             DealUp();
+            FirstAttacker = NextPlayer(Defender);
+            Defender = NextPlayer(FirstAttacker);
+            Current = Attacker = FirstAttacker;
         }
         public void GiveUp() //defender says «I give up»
         {
@@ -93,10 +100,12 @@ namespace Durak
         public void Beat()
         {
             Table.Clear();
-            Attacker = NextAttacker(Attacker);
             GameMode = Mode.Attack;
-            NextAttacker(Current);
             CardsToBeat = 6;
+            DealUp();
+            FirstAttacker = NextPlayer(FirstAttacker);
+            Defender = NextPlayer(FirstAttacker);
+            Current = Attacker = FirstAttacker;
             ShowState();
         }
         public bool PossibleMove(Card movingCard)
@@ -137,7 +146,10 @@ namespace Durak
                 GameMode = Mode.Attack;
             }
             else if (GameMode == Mode.Attack)
+            {
                 GameMode = Mode.Defend;
+                FirstPasser = null;
+            }
             ShowState();
         }
 
@@ -152,44 +164,35 @@ namespace Durak
             }
             CardsToBeat = 5;
             Trump = TrumpChoise();
-            Attacker = Players[0];
             //Who current? Who attacker? Who defender?
-            Attacker = WhoFirst();
-            Current = Attacker;
+            FirstAttacker = WhoFirst();
+            Current = Attacker = FirstAttacker;
             Defender = NextPlayer(Attacker);
             ShowState();
         }
         public void DealUp() 
         {
             //whaT IF deck doesn't have enough cards?
-            int counter = 0;
             foreach (var player in Players)
             {
                 if (player.Hand.Count >= 6) continue;
                 player.Hand.Add(Deck.Deal(6 - player.Hand.Count));
             }
+            FirstAttacker = null;
             CheckEmptyPlayers();
             ShowState();
         }
-        Player durak; 
         private void CheckEmptyPlayers()
         {
-            int countInGame = 0;
+            
             foreach (var player in Players)
             {
                 player.InGame = player.Hand.Count > 0;
-                if (player.InGame) countInGame++;
             }
+            int countInGame = Players.Count(p => p.InGame);
             if (countInGame < 2)
             {
-                
-                foreach (var player in Players)
-                {
-                    
-                    if (player.InGame) 
-                        durak = player;
-                }
-                EndOfTheGame(durak);
+                EndOfTheGame(Players.FirstOrDefault(p => p.InGame));
             }
         }
 
@@ -197,19 +200,27 @@ namespace Durak
         {
             //next attacker not current
             //передає хід наступному гравцю
-            for (int i = 0; i < Players.Count; i++)
+            if (FirstPasser == null)
+                FirstPasser = Attacker;
+            
+            Attacker = NextAttacker(Attacker);
+            if (Attacker == FirstPasser)
             {
-                if (i <= Players.Count + 1)
-                    NextAttacker(Current);
-                else if (Players[i] == Players[Players.Count + 1])
-                    Beat();
+                Beat();
+                ShowState();
+                return;
             }
+            Current = Attacker;
+            ShowState();
         }
         public void EndOfTheGame(Player durak)
         {
-
-            //Підбиває підсумки гри, повертає "Дурня"(той, хто програв)
-            ShowInfo($"{durak.Name} lost the game!\n He is a fool");
+            if (durak == null)
+                ShowInfo("Draw");
+            else          
+                //Підбиває підсумки гри, повертає "Дурня"(той, хто програв)
+                ShowInfo($"{durak.Name} lost the game!\n He is a fool");
+            
             ShowState();
         }
         public Card TrumpChoise()

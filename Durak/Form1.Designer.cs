@@ -120,7 +120,7 @@ namespace Durak
             this.bTake.Name = "bTake";
             this.bTake.Size = new System.Drawing.Size(97, 30);
             this.bTake.TabIndex = 8;
-            this.bTake.Text = "Take";
+            this.bTake.Text = "Give Up";
             this.bTake.UseVisualStyleBackColor = true;
             this.bTake.Click += new System.EventHandler(this.bTake_Click);
             // 

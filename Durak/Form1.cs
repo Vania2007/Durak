@@ -42,8 +42,8 @@ namespace Durak
         //Повернути всі малюнки у cardStore                                                                           +
         //Додати мітки для імен гравців                                                                              +/-
         //Протестувати програму на предмет помилок:
-        //                                             1) Pass(): немає ніякої реакції
-        //                                             2) Після натиску кнопок не стають недоступними, хоча цей момент прописано
+        //                                             1) Після Beat() Стіл не очищається, карти потім замінюються
+        //                                             2) не правильно роздаються ролі, атакує то самий гравець увесь час.
 
         private void ShowInfo(string message)
         {
@@ -198,8 +198,8 @@ namespace Durak
         private void bTake_Click(object sender, EventArgs e)
         {
             bTake.Enabled = false;
-            //game.PickUp();
-            game.GiveUp(); //
+            game.GiveUp();
+            game.PickUp();
             bTake.Enabled = game.Current == game.Attacker;
             bPass.Enabled = game.Current == game.Defender;
         }

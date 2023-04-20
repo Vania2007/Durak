@@ -104,7 +104,7 @@ namespace Durak
             if (GameMode != Mode.Toss) return;
 
             FirstAttackerAfterDefender = Attacker;
-            //далі гравець робить хід, і після цього змінюється атакер на наступного          
+            //далі перший атакер починає підкидати, і після цього змінюється атакер на наступного    
         }
 
         public void Beat()
@@ -214,7 +214,7 @@ namespace Durak
             //передає хід наступному гравцю
             if (FirstPasser == null)
                 FirstPasser = Attacker;
-            
+
             Attacker = NextAttacker(Attacker);
             if (Attacker == FirstPasser)
             {
@@ -224,6 +224,8 @@ namespace Durak
             }
             Current = Attacker;
             ShowState();
+
+
         }
         public void EndOfTheGame(Player durak)
         {

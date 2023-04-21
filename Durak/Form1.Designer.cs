@@ -50,8 +50,8 @@ namespace Durak
             this.pPlayer46 = new System.Windows.Forms.Panel();
             this.pPlayer5 = new System.Windows.Forms.Panel();
             this.lbl4 = new System.Windows.Forms.Label();
-            this.lbl1 = new System.Windows.Forms.Label();
             this.lbl2 = new System.Windows.Forms.Label();
+            this.lbl1 = new System.Windows.Forms.Label();
             this.lbl23 = new System.Windows.Forms.Label();
             this.lbl3 = new System.Windows.Forms.Label();
             this.lbl13 = new System.Windows.Forms.Label();
@@ -59,7 +59,6 @@ namespace Durak
             this.pTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pActive)).BeginInit();
             this.pPLayer2.SuspendLayout();
-            this.pPlayer6.SuspendLayout();
             this.pPlayer5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,7 +71,6 @@ namespace Durak
             // 
             // pTable
             // 
-            this.pTable.Controls.Add(this.lbl46);
             this.pTable.Controls.Add(this.panel3);
             this.pTable.Location = new System.Drawing.Point(214, 126);
             this.pTable.Name = "pTable";
@@ -82,7 +80,7 @@ namespace Durak
             // lbl46
             // 
             this.lbl46.AutoSize = true;
-            this.lbl46.Location = new System.Drawing.Point(266, 70);
+            this.lbl46.Location = new System.Drawing.Point(752, 196);
             this.lbl46.Name = "lbl46";
             this.lbl46.Size = new System.Drawing.Size(38, 15);
             this.lbl46.TabIndex = 17;
@@ -116,7 +114,7 @@ namespace Durak
             // lInfo
             // 
             this.lInfo.AutoSize = true;
-            this.lInfo.Location = new System.Drawing.Point(12, 338);
+            this.lInfo.Location = new System.Drawing.Point(13, 284);
             this.lInfo.Name = "lInfo";
             this.lInfo.Size = new System.Drawing.Size(0, 15);
             this.lInfo.TabIndex = 6;
@@ -191,7 +189,6 @@ namespace Durak
             // 
             // pPlayer6
             // 
-            this.pPlayer6.Controls.Add(this.lbl5);
             this.pPlayer6.Location = new System.Drawing.Point(434, 304);
             this.pPlayer6.Name = "pPlayer6";
             this.pPlayer6.Size = new System.Drawing.Size(313, 100);
@@ -200,7 +197,7 @@ namespace Durak
             // lbl5
             // 
             this.lbl5.AutoSize = true;
-            this.lbl5.Location = new System.Drawing.Point(46, 0);
+            this.lbl5.Location = new System.Drawing.Point(750, 304);
             this.lbl5.Name = "lbl5";
             this.lbl5.Size = new System.Drawing.Size(38, 15);
             this.lbl5.TabIndex = 17;
@@ -239,25 +236,25 @@ namespace Durak
             this.lbl4.Text = "label1";
             this.lbl4.Visible = false;
             // 
-            // lbl1
-            // 
-            this.lbl1.AutoSize = true;
-            this.lbl1.Location = new System.Drawing.Point(214, 107);
-            this.lbl1.Name = "lbl1";
-            this.lbl1.Size = new System.Drawing.Size(38, 15);
-            this.lbl1.TabIndex = 11;
-            this.lbl1.Text = "label1";
-            this.lbl1.Visible = false;
-            // 
             // lbl2
             // 
             this.lbl2.AutoSize = true;
-            this.lbl2.Location = new System.Drawing.Point(214, 407);
+            this.lbl2.Location = new System.Drawing.Point(214, 107);
             this.lbl2.Name = "lbl2";
             this.lbl2.Size = new System.Drawing.Size(38, 15);
-            this.lbl2.TabIndex = 12;
-            this.lbl2.Text = "label2";
+            this.lbl2.TabIndex = 11;
+            this.lbl2.Text = "label1";
             this.lbl2.Visible = false;
+            // 
+            // lbl1
+            // 
+            this.lbl1.AutoSize = true;
+            this.lbl1.Location = new System.Drawing.Point(214, 407);
+            this.lbl1.Name = "lbl1";
+            this.lbl1.Size = new System.Drawing.Size(38, 15);
+            this.lbl1.TabIndex = 12;
+            this.lbl1.Text = "label2";
+            this.lbl1.Visible = false;
             // 
             // lbl23
             // 
@@ -304,12 +301,14 @@ namespace Durak
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lbl46);
+            this.Controls.Add(this.lbl5);
             this.Controls.Add(this.lbl3);
             this.Controls.Add(this.lbl6);
             this.Controls.Add(this.lbl13);
             this.Controls.Add(this.lbl23);
-            this.Controls.Add(this.lbl2);
             this.Controls.Add(this.lbl1);
+            this.Controls.Add(this.lbl2);
             this.Controls.Add(this.bPass);
             this.Controls.Add(this.bTake);
             this.Controls.Add(this.lInfo);
@@ -329,11 +328,8 @@ namespace Durak
             this.Name = "Form1";
             this.Text = "Durak";
             this.pTable.ResumeLayout(false);
-            this.pTable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pActive)).EndInit();
             this.pPLayer2.ResumeLayout(false);
-            this.pPlayer6.ResumeLayout(false);
-            this.pPlayer6.PerformLayout();
             this.pPlayer5.ResumeLayout(false);
             this.pPlayer5.PerformLayout();
             this.ResumeLayout(false);
@@ -364,8 +360,8 @@ namespace Durak
         private System.Windows.Forms.Label lbl46;
         private System.Windows.Forms.Label lbl5;
         private System.Windows.Forms.Label lbl4;
-        private System.Windows.Forms.Label lbl1;
         private System.Windows.Forms.Label lbl2;
+        private System.Windows.Forms.Label lbl1;
         private System.Windows.Forms.Label lbl23;
         private System.Windows.Forms.Label lbl3;
         private System.Windows.Forms.Label lbl13;

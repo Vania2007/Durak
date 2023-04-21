@@ -31,7 +31,6 @@ namespace Durak
         public List<Player> Players { get; set; }
         public CardSet Table { get; set; }
         public Player Current { get; set; }
-        public Player FirstAttackerAfterDefender { get; set; }//атакер, після якого дефендер сказав "Беру!"
         public Player Attacker { get; set; }
         public Player Defender { get; set; }
         public Card Trump { get; set; }
@@ -85,6 +84,7 @@ namespace Durak
         public void PickUp()
         {
             Defender.Hand.Add(Table.Deal(Table.Count));
+            Table.Clear();
             DealUp();
             FirstAttacker = NextPlayer(Defender);
             Defender = NextPlayer(FirstAttacker);
@@ -95,18 +95,8 @@ namespace Durak
             GameMode = Mode.Toss;
             Current = Attacker;
             ShowInfo($"{Current.Name} is giving up");
-            Toosing();
             ShowState();
         }
-
-        public void Toosing()
-        {
-            if (GameMode != Mode.Toss) return;
-
-            FirstAttackerAfterDefender = Attacker;
-            //далі перший атакер починає підкидати, і після цього змінюється атакер на наступного    
-        }
-
         public void Beat()
         {
             Table.Clear();
@@ -214,14 +204,18 @@ namespace Durak
             //передає хід наступному гравцю
             if (FirstPasser == null)
                 FirstPasser = Attacker;
-
             Attacker = NextAttacker(Attacker);
             if (Attacker == FirstPasser)
             {
-                Beat();
+                if (GameMode == Mode.Attack)
+                    Beat();
+                else if (GameMode == Mode.Toss)
+                    PickUp();
                 ShowState();
                 return;
             }
+            
+            
             Current = Attacker;
             ShowState();
 

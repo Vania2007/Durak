@@ -218,7 +218,6 @@ namespace Durak
         {
             bPass.Enabled = false;
             game.Pass();
-            pTable.Controls.Clear();
             bTake.Enabled = game.Current == game.Attacker;
             bPass.Enabled = game.Current == game.Defender;
 

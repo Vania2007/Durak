@@ -31,8 +31,8 @@ namespace Durak
         {
             this.pDeck = new System.Windows.Forms.Panel();
             this.pTable = new System.Windows.Forms.Panel();
-            this.lbl46 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lbl46 = new System.Windows.Forms.Label();
             this.lStatus = new System.Windows.Forms.Label();
             this.pActive = new System.Windows.Forms.PictureBox();
             this.lInfo = new System.Windows.Forms.Label();
@@ -64,28 +64,18 @@ namespace Durak
             // 
             // pDeck
             // 
-            this.pDeck.Location = new System.Drawing.Point(12, 122);
+            this.pDeck.Location = new System.Drawing.Point(3, 132);
             this.pDeck.Name = "pDeck";
-            this.pDeck.Size = new System.Drawing.Size(160, 160);
+            this.pDeck.Size = new System.Drawing.Size(144, 149);
             this.pDeck.TabIndex = 0;
             // 
             // pTable
             // 
             this.pTable.Controls.Add(this.panel3);
-            this.pTable.Location = new System.Drawing.Point(214, 126);
+            this.pTable.Location = new System.Drawing.Point(196, 135);
             this.pTable.Name = "pTable";
-            this.pTable.Size = new System.Drawing.Size(346, 150);
+            this.pTable.Size = new System.Drawing.Size(262, 119);
             this.pTable.TabIndex = 2;
-            // 
-            // lbl46
-            // 
-            this.lbl46.AutoSize = true;
-            this.lbl46.Location = new System.Drawing.Point(752, 196);
-            this.lbl46.Name = "lbl46";
-            this.lbl46.Size = new System.Drawing.Size(38, 15);
-            this.lbl46.TabIndex = 17;
-            this.lbl46.Text = "label1";
-            this.lbl46.Visible = false;
             // 
             // panel3
             // 
@@ -93,6 +83,16 @@ namespace Durak
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(225, 73);
             this.panel3.TabIndex = 9;
+            // 
+            // lbl46
+            // 
+            this.lbl46.AutoSize = true;
+            this.lbl46.Location = new System.Drawing.Point(750, 197);
+            this.lbl46.Name = "lbl46";
+            this.lbl46.Size = new System.Drawing.Size(38, 15);
+            this.lbl46.TabIndex = 17;
+            this.lbl46.Text = "label1";
+            this.lbl46.Visible = false;
             // 
             // lStatus
             // 

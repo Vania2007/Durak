@@ -89,6 +89,7 @@ namespace Durak
             FirstAttacker = NextPlayer(Defender);
             Defender = NextPlayer(FirstAttacker);
             Current = Attacker = FirstAttacker;
+            ShowState();
         }
         public void GiveUp() //defender says «I give up»
         {

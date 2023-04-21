@@ -49,19 +49,7 @@ namespace Durak
         {
             lInfo.Text = message;
         }
-        private List<Label> PlacementOfLabel()
-        {
-            List<Label> labels = new List<Label>();
-            for (int i = 0; i < players.Count; i++)
-            {
-                Label label = new Label();
-                label.Text = $"{players[i].Name}";
-                label.Location = new Point(); //Прив'язатися до панелей гравців: Point(panel.Location.X, panel.Location.Y-panel.Height)
-                Controls.Add(label);
-                labels.Add(label);
-            }
-            return labels;
-        }
+        
         List<Player> players = new List<Player>()
         {
             new Player("Bob"),
@@ -81,6 +69,10 @@ namespace Durak
                 store));
                 sets.Add(new GraphicsCardSet(game.Players[1].Hand, new Rectangle(pPLayer2.Location, pPLayer2.Size),
                     store));
+                lbl1.Text = $"{players[0].Name}";
+                lbl1.Visible = true;
+                lbl2.Text = $"{players[1].Name}";
+                lbl2.Visible = true;
             }
             else if (NumberOfPlayers == 3)
             {
@@ -90,6 +82,12 @@ namespace Durak
                     store));
                 sets.Add(new GraphicsCardSet(game.Players[2].Hand, new Rectangle(pPlayer3.Location, pPlayer3.Size),
                     store));
+                lbl1.Text = $"{players[0].Name}";
+                lbl1.Visible = true;
+                lbl23.Text = $"{players[1].Name}";
+                lbl23.Visible = true;
+                lbl3.Text = $"{players[2].Name}";
+                lbl3.Visible = true;
             }
             else if (NumberOfPlayers == 4)
             {
@@ -101,6 +99,14 @@ namespace Durak
                     store));
                 sets.Add(new GraphicsCardSet(game.Players[3].Hand, new Rectangle(pPlayer6.Location, pPlayer6.Size),
                     store));
+                lbl13.Text = $"{players[0].Name}";
+                lbl13.Visible = true;
+                lbl23.Text = $"{players[1].Name}";
+                lbl23.Visible = true;
+                lbl3.Text = $"{players[2].Name}";
+                lbl3.Visible = true;
+                lbl6.Text = $"{players[3].Name}";
+                lbl6.Visible = true;
             }
             else if (NumberOfPlayers == 5)
             {
@@ -114,6 +120,16 @@ namespace Durak
                     store));
                 sets.Add(new GraphicsCardSet(game.Players[4].Hand, new Rectangle(pPlayer6.Location, pPlayer6.Size),
                     store));
+                lbl13.Text = $"{players[0].Name}";
+                lbl13.Visible = true;
+                lbl23.Text = $"{players[1].Name}";
+                lbl23.Visible = true;
+                lbl3.Text = $"{players[2].Name}";
+                lbl3.Visible = true;
+                lbl4.Text = $"{players[3].Name}";
+                lbl4.Visible = true;
+                lbl6.Text = $"{players[4].Name}";
+                lbl6.Visible = true;
             }
             else if (NumberOfPlayers == 6)
             {
@@ -129,6 +145,18 @@ namespace Durak
                     store));
                 sets.Add(new GraphicsCardSet(game.Players[5].Hand, new Rectangle(pPlayer6.Location, pPlayer6.Size),
                     store));
+                lbl13.Text = $"{players[0].Name}";
+                lbl13.Visible = true;
+                lbl23.Text = $"{players[1].Name}";
+                lbl23.Visible = true;
+                lbl3.Text = $"{players[2].Name}";
+                lbl3.Visible = true;
+                lbl46.Text = $"{players[3].Name}";
+                lbl46.Visible = true;
+                lbl5.Text = $"{players[4].Name}";
+                lbl5.Visible = true;
+                lbl6.Text = $"{players[5].Name}";
+                lbl6.Visible = true;
             }
         }
         private void ShowState()
@@ -190,6 +218,7 @@ namespace Durak
         {
             bPass.Enabled = false;
             game.Pass();
+            pTable.Controls.Clear();
             bTake.Enabled = game.Current == game.Attacker;
             bPass.Enabled = game.Current == game.Defender;
 
@@ -199,7 +228,7 @@ namespace Durak
         {
             bTake.Enabled = false;
             game.GiveUp();
-            game.PickUp();
+            pTable.Controls.Clear();
             bTake.Enabled = game.Current == game.Attacker;
             bPass.Enabled = game.Current == game.Defender;
         }

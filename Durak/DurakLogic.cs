@@ -23,11 +23,13 @@ namespace Durak
             Table = new CardSet();
             ShowInfo = showInfo;
             ShowState = showState;
+            Beated = new CardSet();
         }
         public Action ShowState { get; set; }
         public Action<string> ShowInfo { get; set; }
         public string Info { get; set; }
         public CardSet Deck { get; set; }
+        public CardSet Beated { get; set; }
         public List<Player> Players { get; set; }
         public CardSet Table { get; set; }
         public Player Current { get; set; }
@@ -100,7 +102,7 @@ namespace Durak
         }
         public void Beat()
         {
-            Table.Clear();
+            Beated.Add(Table.Deal());
             ShowState();
             GameMode = Mode.Attack;
             CardsToBeat = 6;
@@ -179,9 +181,9 @@ namespace Durak
             {
                 if (player.Hand.Count >= 6) continue;
                 player.Hand.Add(Deck.Deal(6 - player.Hand.Count));
-                player.Hand.Sort();
+                player.Hand.Sort(new DurakComparer(Trump.Suit));
             }
-            FirstAttacker = null;
+            FirstPasser = null;
             CheckEmptyPlayers();
             ShowState();
         }

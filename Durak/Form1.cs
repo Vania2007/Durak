@@ -27,12 +27,13 @@ namespace Durak
             store = new GraphicsStore(game.Deck, this);
             table = new GraphicsCardSet(game.Table, new Rectangle(pTable.Location, pTable.Size),
                 store);
+            sets.Add(new GraphicsCardSet(game.Beated, new Rectangle(-5,-5,1,1),
+                store));
             sets.Add(new GraphicsCardSet(game.Deck, new Rectangle(pDeck.Location, pDeck.Size),
                 store));
             DistributionOfPlayersOnTheTable();
             sets.Add(table);
             BindEvents();
-            //PlacementOfLabel();
             game.Start();
             Update();
         }
@@ -42,8 +43,7 @@ namespace Durak
         //Повернути всі малюнки у cardStore                                                                           +
         //Додати мітки для імен гравців                                                                              +/-
         //Протестувати програму на предмет помилок:
-        //                                             1) Після Beat() Стіл не очищається, карти потім замінюються
-        //                                             2) не правильно роздаються ролі, атакує то самий гравець увесь час.
+        //                                         1) Доробити GiveUp()
 
         private void ShowInfo(string message)
         {
@@ -54,7 +54,7 @@ namespace Durak
         {
             new Player("Bob"),
             new Player("Patric"),
-            //new Player("Alex"),
+            new Player("Alex"),
             //new Player("Ivan"),
             //new Player("Gena"),
             //new Player("Kolya")
@@ -220,7 +220,6 @@ namespace Durak
             game.Pass();
             bTake.Enabled = game.Current == game.Attacker;
             bPass.Enabled = game.Current == game.Defender;
-
         }
 
         private void bTake_Click(object sender, EventArgs e)

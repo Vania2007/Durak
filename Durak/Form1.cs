@@ -54,7 +54,7 @@ namespace Durak
         {
             new Player("Bob"),
             new Player("Patric"),
-            new Player("Alex"),
+            //new Player("Alex"),
             //new Player("Ivan"),
             //new Player("Gena"),
             //new Player("Kolya")

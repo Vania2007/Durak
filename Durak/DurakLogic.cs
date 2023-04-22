@@ -207,7 +207,7 @@ namespace Durak
             //передає хід наступному гравцю
             if (FirstPasser == null)
                 FirstPasser = Attacker;
-            Attacker = NextAttacker(Attacker);
+            Current = Attacker = NextAttacker(Attacker);
             if (Attacker == FirstPasser)
             {
                 if (GameMode == Mode.Attack)

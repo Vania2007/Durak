@@ -132,7 +132,7 @@ namespace Durak
         }
         public void Turn(Card card)
         {
-
+            
             if (!Current.Hand.Contains(card)) return;
             if (!PossibleMove(card)) return;
             Table.Add(Current.Hand.Pull(card));

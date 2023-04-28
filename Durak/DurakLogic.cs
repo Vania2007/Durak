@@ -86,8 +86,8 @@ namespace Durak
         public void PickUp()
         {
             Defender.Hand.Add(Table.Deal(Table.Count));
-            Table.Clear();
             DealUp();
+            GameMode = Mode.Attack;
             FirstAttacker = NextPlayer(Defender);
             Defender = NextPlayer(FirstAttacker);
             Current = Attacker = FirstAttacker;

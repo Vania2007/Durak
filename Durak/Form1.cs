@@ -23,11 +23,11 @@ namespace Durak
         {
             InitializeComponent();
             pActive.BringToFront();
-            game = new DurakLogic(players, ShowInfo, ShowState); 
+            game = new DurakLogic(players, ShowInfo, ShowState);
             store = new GraphicsStore(game.Deck, this);
             table = new GraphicsCardSet(game.Table, new Rectangle(pTable.Location, pTable.Size),
                 store);
-            sets.Add(new GraphicsCardSet(game.Beated, new Rectangle(-5,-5,1,1),
+            sets.Add(new GraphicsCardSet(game.Beated, new Rectangle(-5, -5, 1, 1),
                 store));
             sets.Add(new GraphicsCardSet(game.Deck, new Rectangle(pDeck.Location, pDeck.Size),
                 store));
@@ -37,29 +37,21 @@ namespace Durak
             game.Start();
             Update();
         }
-
-        //Додати кнопки «Пас» і «Забрати», активність яких визначається у ментоді ShowState на основі режуму гри     +/-
-        //Додати на форму 4—6 гравців                                                                                 +
-        //Повернути всі малюнки у cardStore                                                                           +
-        //Додати мітки для імен гравців                                                                              +/-
-        //Протестувати програму на предмет помилок:
-        //                                         1) Доробити GiveUp()
-
         private void ShowInfo(string message)
         {
             lInfo.Text = message;
         }
-        
+
         List<Player> players = new List<Player>()
         {
             new Player("Bob"),
             new Player("Patric"),
             new Player("Alex"),
-            //new Player("Ivan"),
-            //new Player("Gena"),
-            //new Player("Kolya")
+            new Player("Ivan"),
+            new Player("Gena"),
+            new Player("Kolya")
         };
-        
+
         private void DistributionOfPlayersOnTheTable()
         {
             int NumberOfPlayers = players.Count;
@@ -163,12 +155,12 @@ namespace Durak
         {
             foreach (var set in sets)
             {
-                if(set.CardSet == game.Deck)
+                if (set.CardSet == game.Deck)
                 {
                     set.Draw(c => c == game.Trump);
                 }
                 else
-                set.Draw(game.Current.Hand == set.CardSet || game.Table == set.CardSet);
+                    set.Draw(game.Current.Hand == set.CardSet || game.Table == set.CardSet);
             }
             bPass.Enabled = game.Current == game.Attacker;
             bTake.Enabled = game.Current == game.Defender;
@@ -186,7 +178,7 @@ namespace Durak
         }
         private void Turn(object sender, MouseEventArgs e)
         {
-            
+
             if (activeCard == null) return;
             if (e.Button != MouseButtons.Left) return;
             Rectangle r1 = new Rectangle(pActive.Location, pActive.Size);
@@ -214,12 +206,12 @@ namespace Durak
             pActive.Image = pb.Image;
             pActive.Show();
         }
-        
+
         private void bPass_Click(object sender, EventArgs e)
         {
             bPass.Enabled = false;
             game.Pass();
-            
+
         }
 
         private void bTake_Click(object sender, EventArgs e)
@@ -227,7 +219,7 @@ namespace Durak
             bTake.Enabled = false;
             game.GiveUp();
             pTable.Controls.Clear();
-            
+
         }
     }
 }

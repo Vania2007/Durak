@@ -10,20 +10,63 @@ namespace Durak
 {
     public partial class Form2 : Form
     {
-        Form1 GlobalForm;
+        public List<Player> Players { get; set; }
+        private List<TextBox> TextBoxes { get; set; }
         public Form2()
         {
             InitializeComponent();
+            CountOfTextBoxes();
+            AddNameOfPlayers();
         }
         public void CountOfTextBoxes()
         {
+            List<TextBox> textBoxes = new List<TextBox>()
+            {
+                tbName1,
+                tbName2,
+                tbName3,
+                tbName4,
+                tbName5,
+                tbName6
+            };
+            TextBoxes = textBoxes;
+            List<Label> lblNames = new List<Label>()
+            {
+                lblName1,
+                lblName2,
+                lblName3,
+                lblName4,
+                lblName5,
+                lblName6
+            };
             for (int i = 0; i < numericUpDown1.Value; i++)
             {
-                TextBox tb = new TextBox();
-                tb.Location = new Point(numericUpDown1.Location.X, numericUpDown1.Location.Y+numericUpDown1.Height+10);
-                tb.Size = new Size(120, 30);
-                this.Controls.Add(tb);
+                textBoxes[i].Enabled = true;
+                textBoxes[i].Visible = true;
+                lblNames[i].Visible = true;
             }
+        }
+        public void AddNameOfPlayers()
+        {
+            List<Player> players = new List<Player>();
+            for (int i = 0; i < numericUpDown1.Value; i++)
+            {
+                players.Add(new Player($"{TextBoxes[i].Text}"));
+            }
+            Players = players;
+        }
+
+        private void bStart_Click(object sender, EventArgs e)
+        {
+            AddNameOfPlayers();
+            new Form1();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            CountOfTextBoxes();
+            AddNameOfPlayers();
+            Update();
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Durak
         {
             Deck = new CardSet();
             Deck.Full();
+            Deck.CutTo(36);
             Players = players;
             Table = new CardSet();
             ShowInfo = showInfo;

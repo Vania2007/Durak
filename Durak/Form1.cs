@@ -22,6 +22,9 @@ namespace Durak
         public Form1()
         {
             InitializeComponent();
+            Form2 form2 = new Form2();
+            form2.ShowDialog();
+            players = form2.Players;
             pActive.BringToFront();
             game = new DurakLogic(players, ShowInfo, ShowState);
             store = new GraphicsStore(game.Deck, this);
@@ -44,12 +47,12 @@ namespace Durak
 
         List<Player> players = new List<Player>()
         {
-            new Player("Bob"),
-            new Player("Patric"),
-            new Player("Alex"),
-            new Player("Ivan"),
-            new Player("Gena"),
-            new Player("Kolya")
+            //new Player("Bob"),
+            //new Player("Patric"),
+            //new Player("Alex"),
+            //new Player("Ivan"),
+            //new Player("Gena"),
+            //new Player("Kolya")
         };
 
         private void DistributionOfPlayersOnTheTable()

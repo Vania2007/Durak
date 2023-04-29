@@ -41,6 +41,12 @@ namespace Durak
                 lblName6
             };
             Labels = lblNames;
+            for (int i = 0; i < numericUpDown1.Value; i++)
+            {
+                textBoxes[i].Enabled = true;
+                textBoxes[i].Visible = true;
+                lblNames[i].Visible = true;
+            }
         }
         public void AddNameOfPlayers()
         {
@@ -60,15 +66,6 @@ namespace Durak
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            //if(numericUpDown1.Value == 2)
-            //{
-            //    TextBoxes[0].Enabled = TextBoxes[1].Enabled = true;
-            //    TextBoxes[2].Enabled = TextBoxes[3].Enabled = TextBoxes[4].Enabled = TextBoxes[5].Enabled = false;
-            //    TextBoxes[0].Visible = TextBoxes[1].Visible = true;
-            //    TextBoxes[2].Visible = TextBoxes[3].Visible = TextBoxes[4].Visible = TextBoxes[5].Visible = false;
-            //    Labels[0].Visible = Labels[1].Visible = true;
-            //    Labels[2].Visible = Labels[3].Visible = Labels[4].Visible = Labels[5].Visible = false;
-            //}
             CountOfTextBoxes();
             AddNameOfPlayers();
             Update();

@@ -45,15 +45,7 @@ namespace Durak
             lInfo.Text = message;
         }
 
-        List<Player> players = new List<Player>()
-        {
-            //new Player("Bob"),
-            //new Player("Patric"),
-            //new Player("Alex"),
-            //new Player("Ivan"),
-            //new Player("Gena"),
-            //new Player("Kolya")
-        };
+        List<Player> players = new List<Player>();
 
         private void DistributionOfPlayersOnTheTable()
         {
